@@ -1,0 +1,10 @@
+\beamer@endinputifotherversion {3.33pt}
+\select@language {spanish}
+\beamer@sectionintoc {1}{Aut\IeC {\'o}matas finitos determin\IeC {\'\i }sticos}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Definici\IeC {\'o}n}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{Conceptos}{4}{0}{1}
+\beamer@sectionintoc {2}{Ejercicio}{5}{0}{2}
+\beamer@subsectionintoc {2}{1}{Enunciado}{5}{0}{2}
+\beamer@subsectionintoc {2}{2}{Consideraciones}{6}{0}{2}
+\beamer@subsectionintoc {2}{3}{Soluci\IeC {\'o}n}{14}{0}{2}
+\beamer@sectionintoc {3}{Bibliograf\IeC {\'\i }a}{31}{0}{3}

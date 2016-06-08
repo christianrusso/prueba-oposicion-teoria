@@ -1,0 +1,209 @@
+\section{Ejercicio}
+\subsection{Enunciado}
+\frame{
+\frametitle{Ejercicio 1-d) (Práctica 1 - Teoría de lenguajes)}
+Construir un autómata finito para el siguiente lenguaje:
+
+Cadenas sobre $\Sigma = \lbrace 0, 1 \rbrace$ que interpretadas como un número binario, sean congruentes a cero módulo 5.
+}
+
+\subsection{Consideraciones}
+\frame{
+\begin{itemize}
+\item Los números divisibles por 5 son aquellos que terminan en 0 ó 5 (decimales).
+\item Construcción de números en binario y su representación decimal.
+\end{itemize}
+}
+
+
+\subsection{Construcción de números en binario}
+\frame{
+\frametitle{Concatenar un 0}
+Se obtiene el resultado de realizar un shift a izquierda al número, es decir, lo multiplica por 2. El número obtenido tiene al menos el último dígito distinto al original. Este último dígito es el que nos interesa para decidir si un número es divisible por 5 o no.
+}
+
+\frame{
+\frametitle{Concatenar un 0}
+\begin{columns}
+	\begin{column}{4cm}
+		\begin{tabular}{c | c}
+			\camposcolorS{Binario (decimal) original}{Binario (decimal) obtenido}
+			\filaparS	{0 (0)}		{00 (0) $\rightarrow$ finaliza en 0}
+			\filaimparS	{1 (1)}		{10 (2) $\rightarrow$ finaliza en 2}
+			\filaparS	{10 (2)}	{100 (4) $\rightarrow$ finaliza en 4}
+			\filaimparS	{11 (3)}	{110 (6) $\rightarrow$ finaliza en 6}
+			\filaparS	{100 (4)}	{1000 (8) $\rightarrow$ finaliza en 8}
+			\filaimparS	{101 (5)}	{1010 (10) $\rightarrow$ finaliza en 0}
+			\filaparS	{110 (6)}	{1100 (12) $\rightarrow$ finaliza en 2}
+			\filaimparS	{111  (7)}	{1110 (14) $\rightarrow$ finaliza en 4}
+			\filaparS	{1000 (8)}	{10000 (16) $\rightarrow$ finaliza en 6}
+			\filaimparS	{1001 (9)}	{10010 (18) $\rightarrow$ finaliza en 8}
+		\end{tabular}
+	\end{column}
+	\begin{column}{4cm}
+	\end{column}
+
+\end{columns}
+}
+
+
+\frame{
+\frametitle{Concatenar un 1}
+Se obtiene el resultado de realizar un shift a izquierda al número y sumarle 1, es decir, lo multiplica por 2 y le suma 1. El número obtenido tiene al menos el último dígito distinto al original. Este último dígito es el que nos interesa para decidir si un número es divisible por 5 o no.
+}
+
+\frame{
+\frametitle{Concatenar un 1}
+\begin{columns}
+	\begin{column}{4cm}
+		\begin{tabular}{c | c}
+			\camposcolorS{Binario (decimal) original}{Binario (decimal) obtenido}
+			\filaparS	{0 (0)}		{01 (1) $\rightarrow$ finaliza en 1}
+			\filaimparS	{1 (1)}		{11 (3) $\rightarrow$ finaliza en 3}
+			\filaparS	{10 (2)}	{101 (5) $\rightarrow$ finaliza en 5}
+			\filaimparS	{11 (3)}	{111 (7) $\rightarrow$ finaliza en 7}
+			\filaparS	{100 (4)}	{1001 (9) $\rightarrow$ finaliza en 9}
+			\filaimparS	{101 (5)}	{1011 (11) $\rightarrow$ finaliza en 1}
+			\filaparS	{110 (6)}	{1101 (13) $\rightarrow$ finaliza en 3}
+			\filaimparS	{111  (7)}	{1111 (15) $\rightarrow$ finaliza en 5}
+			\filaparS	{1000 (8)}	{10001 (17) $\rightarrow$ finaliza en 7}
+			\filaimparS	{1001 (9)}	{10011 (19) $\rightarrow$ finaliza en 9}
+		\end{tabular}
+	\end{column}
+	\begin{column}{4cm}
+	\end{column}
+\end{columns}
+}
+
+\subsection{Solución}
+\frame{
+\frametitle{Planteo}
+Si consideramos los estados 0, 1, \dots, 9 representando a los números que finalizan en cada uno de esos dígitos, podemos generar todos los decimales haciendo todas las transiciones posibles con 0 y 1. Es decir:
+\begin{itemize}
+	\item Partiendo del estado inicial (cadena vacía), se puede concatenar un 0 o un 1
+	\item De estos últimos dos estados, también puede concatenarse un 0 o un 1, y de esa forma se pueden obtener el 0, 1, 2, y 3
+	\item Etc.
+\end{itemize}
+}
+
+
+\frame{
+$<\lbrace Ini, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 \rbrace, \lbrace 0, 1 \rbrace, \delta, Ini, \lbrace 0, 5 \rbrace>$
+
+$\delta$:
+\begin{tikzpicture}
+
+  [scale=.7,auto=left]
+\tikzstyle{every state}=[scale=.8,draw=blue!50,circle,very thick,fill=blue!20]
+
+  \node[initial, initial text={},] [scale=.8,draw=blue!50,circle,very thick,fill=blue!20] (nini) at (2, 6) {Ini};
+  \node[state, accepting] 			(n0) at (1,4) {0};
+  \node[state] 						(n1) at (3,4) {1};
+  \node[state] 						(n2) at (5,4) {2};
+  \node[state] 						(n3) at (7,4) {3};
+  \node[state] 						(n4) at (9,4) {4};
+  \node[state,accepting] 			(n5) at (1,1) {5};
+  \node[state] 						(n6) at (3,1) {6};
+  \node[state] 						(n7) at (5,1) {7};
+  \node[state] 						(n8) at (7,1) {8};
+  \node[state]						(n9) at (9,1) {9};
+
+\draw [->] (nini) to node [above] {$0$} (n0);
+\draw [->] (nini) to node [above] {$1$} (n1);
+\pause
+
+\draw [->] (n0) to [loop above] node [above] {$0$} (n0);
+\draw [->] (n0) to node [above] {$1$} (n1);
+
+\pause
+\draw [->] (n1) to node [above] {$0$} (n2);
+\draw [->] (n1) to [bend left=45] node [above] {$1$} (n3);
+
+\pause
+\draw [->] (n2) to [bend left=45] node [above] {$0$} (n4);
+\draw [->] (n2) to node [above] {$1$} (n5);
+
+\pause
+\draw [->] (n3) to [out=200, in=50, pos=0.1] node [above] {$0$} (n6);
+\draw [->] (n3) to node [above] {$1$} (n7);
+
+\pause
+\draw [->] (n4) to node [above] {$0$} (n8);
+\draw [->] (n4) to node [auto] {$1$} (n9);
+
+\pause
+\draw [->] (n5) to node [auto] {$0$} (n0);
+\draw [->] (n5) to node [above] {$1$} (n1);
+
+\pause
+\draw [->] (n6) to node [above] {$0$} (n2);
+\draw [->] (n6) to node [below] {$1$} (n3);
+
+\pause
+\draw [->] (n7) to node [above] {$0$} (n4);
+\draw [->] (n7) to [bend left=45] node [above] {$1$} (n5);
+
+\pause
+\draw [->] (n8) to [bend left=45] node [above] {$0$} (n6);
+\draw [->] (n8) to node [above] {$1$} (n7);
+
+\pause
+\draw [->] (n9) to node [above] {$0$} (n8);
+\draw [->] (n9) to [loop below] node [auto] {$1$} (n9);
+
+\end{tikzpicture}
+}
+
+
+\frame{
+\frametitle{Planteo}
+Si consideramos los estados 0, 1, 2, 3, 4 y 5 representando a los restos de dividir por 5 al número que se va formando en cada estado, podemos generar todos los decimales haciendo todas las transiciones posibles con 0 y 1. Es decir:
+\begin{itemize}
+	\item Partiendo del estado inicial (cadena vacía), se puede concatenar un 0 o un 1
+	\item De estos últimos dos estados, también puede concatenarse un 0 o un 1, y de esa forma se pueden obtener el 0, 1, 2, y 3, siendo congruentes a 0, 1, 2, y 3 respectivamente.
+	\item Etc.
+\end{itemize}
+}
+
+
+\frame{
+$<\lbrace Ini, 0, 1, 2, 3, 4 \rbrace, \lbrace 0, 1 \rbrace, \delta, Ini, \lbrace 0 \rbrace>$
+
+$\delta$:
+\begin{tikzpicture}
+
+  [scale=.7,auto=left]
+\tikzstyle{every state}=[scale=.8,draw=blue!50,circle,very thick,fill=blue!20]
+
+  \node[initial, initial text={},] [scale=.8,draw=blue!50,circle,very thick,fill=blue!20] (nini) at (2, 6) {Ini};
+  \node[state, accepting] 			(n0) at (1,4) {0};
+  \node[state] 						(n1) at (3,4) {1};
+  \node[state] 						(n2) at (5,4) {2};
+  \node[state] 						(n3) at (7,4) {3};
+  \node[state] 						(n4) at (9,4) {4};
+
+\draw [->] (nini) to node [above] {$0$} (n0);
+\draw [->] (nini) to node [above] {$1$} (n1);
+\pause
+
+\draw [->] (n0) to [loop above] node [above] {$0$} (n0);
+\draw [->] (n0) to node [above] {$1$} (n1);
+
+\pause
+\draw [->] (n1) to node [above] {$0$} (n2);
+\draw [->] (n1) to [bend left=45] node [above] {$1$} (n3);
+
+\pause
+\draw [->] (n2) to [bend left=45] node [above] {$0$} (n4);
+\draw [->] (n2) to [bend left=45] node [above] {$1$} (n0);
+
+\pause
+\draw [->] (n3) to [bend left=45] node [above] {$0$} (n1);
+\draw [->] (n3) to node [above] {$1$} (n2);
+
+\pause
+\draw [->] (n4) to node [above] {$0$} (n3);
+\draw [->] (n4) to [loop above] node [auto] {$1$} (n4);
+
+\end{tikzpicture}
+}

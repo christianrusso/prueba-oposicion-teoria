@@ -1,0 +1,123 @@
+\section{Ejercicio}
+\subsection{Enunciado}
+\frame{
+\frametitle{Ejercicio 1-c) (Práctica 1 - Teoría de lenguajes)}
+Construir un autómata finito para el siguiente lenguaje:
+
+Cadenas sobre $\Sigma = \lbrace 0, 1 \rbrace$ con cantidad par de ceros y cantidad impar de unos.
+}
+
+\subsection{Consideraciones}
+\frame{
+Existen cuatro posibles combinaciones de paridades de ceros y unos para un número binario:
+\begin{itemize}
+\item Cantidad par de ceros, cantidad par de unos. 
+\pause
+
+Ej: $\lambda$, 0011, 1111, 010010 
+\pause
+\item Cantidad impar de ceros, cantidad par de unos. 
+\pause
+
+Ej: 011, 11011, 0
+\pause
+\item Cantidad impar de ceros, cantidad impar de unos.
+\pause
+
+Ej: 01, 1110, 0001
+\pause
+\item Cantidad par de ceros, cantidad impar de unos. 
+\pause
+
+Ej: 001, 111, 01000
+\end{itemize}
+De estas cuatro posibles combinaciones, nuestro lenguaje acepta sólo la última.
+}
+
+\subsection{Solución}
+\frame{
+Podemos representar las cuatro distintas combinaciones mencionadas anteriormente, como cuatro estados distintos:
+\begin{itemize}
+\item $Par0Par1$: Cantidad par de ceros, cantidad par de unos. 
+\item $Impar0Par1$: Cantidad impar de ceros, cantidad par de unos. 
+\item $Impar0Impar1$: Cantidad impar de ceros, cantidad impar de unos.
+\item $Par0Impar1$: Cantidad par de ceros, cantidad impar de unos. 
+\end{itemize}
+}
+
+\frame{
+\textbf{Estado Inicial del autómata:}
+\pause 
+
+Al inicio tenemos la cadena $\lambda$: No tenemos ceros ni unos aún
+\pause
+
+\begin{tikzpicture}
+	[scale=.7,auto=left]
+	\tikzstyle{every state}=[scale=.6,draw=blue!50,circle,very thick,fill=blue!20]
+
+	\node[state, initial, initial text={},]  (q0) at (1,4) {\parbox{1.5cm}{\centering $Par0$ \\$Par1$}};
+\end{tikzpicture}
+
+\pause
+\textbf{Estado Final del autómata:}
+\begin{block}{Recordamos:} 
+Una cadena x es aceptada por un AFD si la secuencia de transiciones correspondientes a los símbolos de x conduce desde el estado inicial a un estado final.
+\end{block}
+\pause
+En nuestro caso debemos aceptar las cadenas con cantidad par de ceros y cantidad impar de unos.
+\pause
+Las que cumplen esta condición son las que llegan al estado $Par0Impar1$
+
+\begin{tikzpicture}
+	[scale=.7,auto=left]
+	\tikzstyle{every state}=[scale=.6,draw=blue!50,circle,very thick,fill=blue!20]
+
+	\node[state,accepting] 			(q3) at (1,4) {\parbox{1.5cm}{\centering $Par0$ \\$Impar1$}};
+\end{tikzpicture}
+}
+
+\frame{
+$<Q, \Sigma, \delta, Par0Par1, F>$
+\pause
+
+$Q = \lbrace Par0Par1, Par0Impar1, Impar0Impar1, Impar0Par1 \rbrace$
+\pause
+
+$\Sigma = \lbrace 0, 1 \rbrace$
+\pause
+
+$F = \lbrace Par0Impar1 \rbrace$ 
+
+\pause
+$\delta$:
+
+\pause
+
+\begin{tikzpicture}
+  [scale=.7,auto=left]
+	\tikzstyle{every state}=[scale=.7,draw=blue!50,circle,very thick,fill=blue!20]
+	\node[state, initial, initial text={},]  (q0) at (1,6) {\parbox{1.5cm}{\centering $Par0$ \\$Par1$}};
+	\node[state] 						(q1) at (6,6) {\parbox{1.5cm}{\centering $Impar0$ \\$Par1$}};
+	\node[state,accepting] 			(q3) at (1,1) {\parbox{1.5cm}{\centering $Par0$ \\$Impar1$}};
+	\node[state] 						(q2) at (6,1) {\parbox{1.5cm}{\centering $Impar0$ \\$Impar1$}};
+
+	\pause
+
+	\draw [->] (q0) to [bend left=20] node [above] {$0$} (q1);
+	\draw [->] (q0) to [bend left=20] node [right] {$1$} (q3);
+	\pause
+
+	\draw [->] (q1) to [bend left=20] node [above] {$0$} (q0);
+	\draw [->] (q1) to [bend left=20] node [right] {$1$} (q2);
+	\pause
+
+	\draw [->] (q2) to [bend left=20] node [above] {$0$} (q3);
+	\draw [->] (q2) to [bend left=20] node [left] {$1$} (q1);
+	\pause
+
+	\draw [->] (q3) to [bend left=20] node [above] {$0$} (q2);
+	\draw [->] (q3) to [bend left=20] node [left] {$1$} (q0);
+\end{tikzpicture}
+
+}

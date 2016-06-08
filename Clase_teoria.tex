@@ -1,0 +1,81 @@
+
+
+\documentclass{beamer}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+
+\usetikzlibrary{arrows,automata}
+
+\input{Helpers.tex}
+%\usetheme{Berkeley}
+% \usetheme{JuanLesPins}
+% \usetheme{bars}
+% \usetheme{split}
+  \usetheme[compress]{Ilmenau}
+% \mode<presentation>
+%\mode<handout>%{\beamertemplatesolidbackgroundcolor{black!5}}
+% \mode<article>{\usepackage{fullpage}}
+% \usepackage{pgfpages}
+%\pgfpagelayout{resize}[a4paper,border shrink=5mm,landscape]
+
+\include{epsfig}
+\title{Autómatas finitos determinísticos}
+
+\author{Christian Sebastian Russo}
+\date{16 de Septiembre de 2015}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\frame{\tableofcontents}
+
+\section{Autómatas finitos determinísticos}
+\subsection{Definición}
+
+\frame{
+\frametitle{Autómata finito determinístico - AFD}
+Se define mediante la 5-upla $<Q, \Sigma, \delta, q_0, F>$ donde 
+\begin{itemize}
+\item $Q$ es un conjunto finito de \textbf{estados }
+\item $\Sigma$ es el conjunto finito de símbolos correspondiente al \textbf{alfabeto de entrada}
+\item $\delta : Q \times \Sigma \rightarrow Q$ es la \textbf{función de transición}, que indica las transiciones entre los distintos estados
+\item $q_0 \in Q$ es el \textbf{estado inicial}
+\item $F \subseteq Q$ es el conjunto de \textbf{estados finales}
+\end{itemize}
+\textbf{Determinístico:} para todo estado del autómata existe como máximo una transición definida para cada símbolo del alfabeto 
+}
+
+\subsection{Conceptos}
+
+\frame{
+\frametitle{Relación entre cadenas y autómatas}
+\begin{block}{Función de transición generalizada}
+	La función de transición propuesta anteriormente, puede extenderse para que en lugar de	\textbf{símbolos} del alfabeto acepte \textbf{cadenas} en ese alfabeto, es decir:
+	$\widehat{\delta} : Q \times \Sigma^* \rightarrow Q$
+	\begin{itemize}
+		\item $\widehat{\delta} (q, \lambda) = q$
+		\item $\widehat{\delta} (q, xa) = \delta ( \widehat{\delta} (q, x), a)$ con $x \in \Sigma^*$ y $a \in \Sigma$
+	\end{itemize}
+\end{block}
+\begin{block}{Cadena aceptada por un AFD}
+	Una cadena x es aceptada por un AFD $M = <Q, \Sigma, \delta, q_0, F>$ sii $\widehat{\delta} (q_0, x) \in F$, es decir, si la secuencia de transiciones correspondientes a los símbolos de la cadena x conduce desde el estado inicial a un estado final.
+\end{block}
+}
+
+
+\include{ejercicioc}
+
+\section{Bibliografía}
+\frame{
+\frametitle{Bibliografía}
+\begin{thebibliography}{10}
+	\bibitem{}
+		Introduction to Automata theory, languages, and computation
+	\newblock \emph{Hopcroft, John E. y Ullman, Jeffrey D.}
+\end{thebibliography}
+}
+
+
+\end{document}

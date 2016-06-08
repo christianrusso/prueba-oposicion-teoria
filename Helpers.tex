@@ -1,0 +1,74 @@
+% coding: utf-8
+
+\newcommand{\ToDo}{\color{red} {\Huge COMPLETAR} \normalcolor}
+\newcommand{\ReView}{\color{red} {\Huge REVISAR!! } \normalcolor}
+\newcommand{\Ask}{\color{red} {\Huge CONSULTAR!! } \normalcolor}
+
+\newcommand{\saltosinsangria}{ \newline \newline}
+
+
+\newcommand{\filaparS}[2]
+{
+	{#1} & {#2}\\ 
+}
+
+\newcommand{\filaimparS}[2]
+{
+	{#1} & {#2}\\ 
+}
+
+\newcommand{\camposcolorS}[2]
+{
+\textbf{{#1}} & \textbf{{#2}}\\
+}
+
+
+
+\newcommand{\filaparT}[4]
+{
+	\rowcolor[gray]{1}{#1} & {#2} & {#3} & {#4}\\ 
+}
+
+\newcommand{\filaimparT}[4]
+{
+	\rowcolor[gray]{0.8}{#1} & {#2} & {#3} & {#4}\\ 
+}
+
+\newcommand{\camposcolorT}[4]
+{
+	\rowcolor[cmyk]{1,1,0,0} \textbf{\color{white} {#1}} & \textbf{\color{white} {#2}} & \textbf{\color{white} {#3}} & \textbf{\color{white} {#4}} \\
+}
+
+\newcommand{\filapar}[6]
+{
+	\rowcolor[gray]{1}{#1} & {#2} & {#3} & {#4} & {#5} & {#6}\\ 
+}
+
+\newcommand{\filaimpar}[6]
+{
+	\rowcolor[gray]{0.8}{#1} & {#2} & {#3} & {#4} & {#5} & {#6}\\ 
+}
+
+\newcommand{\camposcolor}[6]
+{
+	\rowcolor[cmyk]{1,1,0,0} \textbf{\color{white} {#1}} & \textbf{\color{white} {#2}} & \textbf{\color{white} {#3}} & \textbf{\color{white} {#4}} & \textbf{\color{white} {#5}} & \textbf{\color{white} {#6}}\\
+}
+
+\newcommand{\imagen}[3]
+{
+	\begin{figure}[p!hbt]
+	  \centering
+	  \includegraphics[scale=#3]{../img/#1}
+	  \caption{#2}
+          \label{fig_#1}
+	\end{figure}
+} 
+\newcommand{\imagenvertical}[3]
+{
+	\begin{figure}[p!hbt]
+	  \centering
+	  \includegraphics[angle=90,scale=#3]{../img/#1}
+	  \caption{#2}
+          \label{fig_#1}
+	\end{figure}
+}
